@@ -1,0 +1,46 @@
+SELECT p.product_name, SUM(oi.quantity) units_sold, ROUND(SUM(oi.quantity*p.price),2) revenue FROM order_items oi JOIN products p ON p.product_id=oi.product_id GROUP BY p.product_id ORDER BY revenue DESC LIMIT 8
+product_name | units_sold | revenue
+Mechanical Keyboard | 13 | 32487.0
+Backpack | 12 | 22788.0
+Office Chair | 2 | 12998.0
+Desk Lamp | 9 | 10791.0
+Bluetooth Speaker | 4 | 8796.0
+USB-C Hub | 3 | 4797.0
+Phone Stand | 8 | 4792.0
+Coffee Mug | 10 | 3990.0
+
+SELECT c.customer_name, c.city, COUNT(o.order_id) number_of_orders FROM customers c LEFT JOIN orders o ON o.customer_id=c.customer_id GROUP BY c.customer_id ORDER BY number_of_orders DESC, c.customer_name LIMIT 10
+customer_name | city | number_of_orders
+Aarav Sharma | Delhi | 2
+Aisha Roy | Jaipur | 2
+Ananya Singh | Bengaluru | 2
+Diya Patel | Mumbai | 2
+Ishaan Gupta | Pune | 2
+Kabir Khan | Jammu | 2
+Meera Nair | Kochi | 2
+Reyansh Verma | Hyderabad | 2
+Sara Thomas | Chennai | 2
+Vivaan Das | Kolkata | 2
+
+SELECT c.city, COUNT(DISTINCT o.order_id) total_orders, ROUND(SUM(oi.quantity*p.price),2) revenue FROM customers c JOIN orders o ON o.customer_id=c.customer_id JOIN order_items oi ON oi.order_id=o.order_id JOIN products p ON p.product_id=oi.product_id GROUP BY c.city ORDER BY revenue DESC LIMIT 8
+city | total_orders | revenue
+Chennai | 3 | 16990.0
+Bengaluru | 2 | 12494.0
+Delhi | 3 | 12190.0
+Kolkata | 3 | 10692.0
+Jaipur | 2 | 9294.0
+Kochi | 2 | 8096.0
+Chandigarh | 1 | 7896.0
+Mumbai | 3 | 7492.0
+
+SELECT product_name, category, units_sold, revenue FROM product_sales_summary ORDER BY revenue DESC LIMIT 8
+product_name | category | units_sold | revenue
+Mechanical Keyboard | Electronics | 13 | 32487.0
+Backpack | Fashion | 12 | 22788.0
+Office Chair | Home | 2 | 12998.0
+Desk Lamp | Home | 9 | 10791.0
+Bluetooth Speaker | Electronics | 4 | 8796.0
+USB-C Hub | Electronics | 3 | 4797.0
+Phone Stand | Electronics | 8 | 4792.0
+Coffee Mug | Lifestyle | 10 | 3990.0
+
